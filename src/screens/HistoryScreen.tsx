@@ -3,7 +3,7 @@
  *
  * Shows the local detection log with timestamps, scores, and Whisper transcripts.
  */
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import {
   View, FlatList, Text, TouchableOpacity, StyleSheet, Alert, RefreshControl,
 } from 'react-native';
@@ -16,6 +16,7 @@ import {COLORS} from '../config/colors';
 export function HistoryScreen() {
   const [items, setItems] = useState<Detection[]>([]);
   const [loading, setLoading] = useState(false);
+  const flatListRef = useRef<FlatList>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -23,7 +24,12 @@ export function HistoryScreen() {
     setLoading(false);
   }, []);
 
-  useFocusEffect(useCallback(() => { load(); }, [load]));
+  useFocusEffect(
+    useCallback(() => {
+      flatListRef.current?.scrollToOffset({ offset: 0, animated: false });
+      load();
+    }, [load])
+  );
 
   const handleClear = () => {
     Alert.alert('Clear History', 'Delete all detection records?', [
@@ -43,6 +49,7 @@ export function HistoryScreen() {
         </TouchableOpacity>
       )}
       <FlatList
+        ref={flatListRef}
         data={items}
         keyExtractor={item => item.id}
         renderItem={({item}) => <DetectionCard item={item} />}

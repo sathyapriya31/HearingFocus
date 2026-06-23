@@ -4,7 +4,7 @@
  * Lets the user configure multiple trigger words, sensitivity threshold, and cooldown.
  * Settings are persisted to AsyncStorage and re-loaded on mount.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import {
   Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import { updateThreshold, stopKeywordSpotting } from "../services/kwsService";
 import { clearDetections } from "../services/detectionStore";
 import { COLORS } from "../config/colors";
@@ -232,6 +233,13 @@ const stepperStyles = StyleSheet.create({
 
 export function SettingsScreen() {
   const [keywords, setKeywords] = useState<string[]>(["test", "help"]);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: false });
+    }, [])
+  );
   const [customInput, setCustomInput] = useState("");
   const [threshold, setThreshold] = useState("0.5");
   const [cooldown, setCooldown] = useState("6000");
@@ -386,7 +394,7 @@ export function SettingsScreen() {
   );
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+    <ScrollView ref={scrollViewRef} style={styles.root} contentContainerStyle={styles.content}>
       {/* 1. Trigger Word Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>

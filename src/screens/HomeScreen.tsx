@@ -33,10 +33,12 @@ export function HomeScreen() {
   const detections = useDetectionEvents(10);
   const activeModelRef = useRef<string>('tiny.en');
   const navigation = useNavigation<any>();
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // Sync listening phase with KWS service state
   useFocusEffect(
     useCallback(() => {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: false });
       const currentListening = isCurrentlyListening();
       if (!currentListening && phase === 'listening') {
         setPhase('ready');
@@ -157,7 +159,7 @@ export function HomeScreen() {
   };
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+    <ScrollView ref={scrollViewRef} style={styles.root} contentContainerStyle={styles.content}>
       {/* 1. Mic Button / Loader Container */}
       <View style={styles.micCircleWrapper}>
         <TouchableOpacity
