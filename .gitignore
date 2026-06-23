@@ -22,6 +22,7 @@ ios/.xcode.env.local
 
 # Android
 android/app/build/
+android/app/.cxx/
 android/.gradle/
 android/local.properties
 android/app/release/
