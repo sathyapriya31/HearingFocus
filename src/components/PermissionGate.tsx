@@ -24,7 +24,6 @@ export function PermissionGate({ children }: Props) {
 
   return (
     <View style={styles.container}>
-      {/* Top Brand Logo */}
       <View style={styles.brandRow}>
         <View style={styles.brandBox}>
           <Image source={require('../../assets/logo.png')} style={styles.brandLogo} resizeMode="contain" />

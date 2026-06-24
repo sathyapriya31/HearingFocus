@@ -13,13 +13,11 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2BA00FE023621585BD07F496 /* HearingTriggerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF6C65F4B04C49C07EF3A0 /* HearingTriggerModule.m */; };
-		2CF203EB56824906B338BE13 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 434A7E0439CC4C5A872EB5E1 /* Ionicons.ttf */; };
-		4529BE1707D549F38DBF8F53 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5958825083F84B518E755B80 /* Feather.ttf */; };
+
 		7699B88040F8A987B510C191 /* libPods-HearingTriggerRN-HearingTriggerRNTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-HearingTriggerRN-HearingTriggerRNTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9D7614C38CE1FF33102FCE1F /* HearingTriggerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9996295125DAD1DEF03DBB /* HearingTriggerModule.swift */; };
-		AE226FFCC2CA4743B3B9A297 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5958825083F84B518E755B80 /* Feather.ttf */; };
-		C045F846F16240AFA13648A5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 434A7E0439CC4C5A872EB5E1 /* Ionicons.ttf */; };
+
 		DBC565ADC60268C70D4EAB58 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -267,8 +265,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE226FFCC2CA4743B3B9A297 /* Feather.ttf in Resources */,
-				C045F846F16240AFA13648A5 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,8 +275,6 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				DBC565ADC60268C70D4EAB58 /* PrivacyInfo.xcprivacy in Resources */,
-				4529BE1707D549F38DBF8F53 /* Feather.ttf in Resources */,
-				2CF203EB56824906B338BE13 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +518,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PS9HDT4EQX;
+				DEVELOPMENT_TEAM = TR66M2SP7Y;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HearingTriggerRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -557,7 +551,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PS9HDT4EQX;
+				DEVELOPMENT_TEAM = TR66M2SP7Y;
 				INFOPLIST_FILE = HearingTriggerRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
