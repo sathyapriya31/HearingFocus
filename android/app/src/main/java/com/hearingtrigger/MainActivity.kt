@@ -2,6 +2,7 @@ package com.hearingtrigger
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
+import com.spritle.hearingtrigger.R
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate

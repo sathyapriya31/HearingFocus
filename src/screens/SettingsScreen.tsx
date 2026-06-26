@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ImageBackground,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -123,7 +124,7 @@ const sliderStyles = StyleSheet.create({
   track: {
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS.grayTrack,
     width: "100%",
     position: "absolute",
     top: 13,
@@ -131,7 +132,7 @@ const sliderStyles = StyleSheet.create({
   activeTrack: {
     height: 6,
     borderRadius: 3,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     position: "absolute",
     left: 0,
     top: 13,
@@ -140,7 +141,7 @@ const sliderStyles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     position: "absolute",
     top: 4,
     shadowColor: "#000",
@@ -185,10 +186,10 @@ function CooldownStepper({ value, onChange }: CooldownStepperProps) {
       />
       <View style={stepperStyles.buttons}>
         <TouchableOpacity style={stepperStyles.btn} onPress={handleIncrement}>
-          <Icon name="chevron-up" size={14} color={COLORS.primary} />
+          <Icon name="chevron-up" size={14} color={COLORS.secondary} />
         </TouchableOpacity>
         <TouchableOpacity style={stepperStyles.btn} onPress={handleDecrement}>
-          <Icon name="chevron-down" size={14} color={COLORS.primary} />
+          <Icon name="chevron-down" size={14} color={COLORS.secondary} />
         </TouchableOpacity>
       </View>
     </View>
@@ -199,9 +200,9 @@ const stepperStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.neutral,
     borderWidth: 1,
-    borderColor: COLORS.primaryBorder,
+    borderColor: COLORS.grayBorder,
     borderRadius: 10,
     width: 120,
     height: 48,
@@ -211,7 +212,7 @@ const stepperStyles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: "600",
-    color: COLORS.tertiary,
+    color: "#FFFFFF",
     paddingVertical: 0,
   },
   buttons: {
@@ -221,7 +222,7 @@ const stepperStyles = StyleSheet.create({
     height: "100%",
     paddingVertical: 4,
     borderLeftWidth: 1,
-    borderLeftColor: "#F3F4F6",
+    borderLeftColor: COLORS.grayBorder,
     paddingLeft: 8,
   },
   btn: {
@@ -394,12 +395,20 @@ export function SettingsScreen() {
   );
 
   return (
-    <ScrollView ref={scrollViewRef} style={styles.root} contentContainerStyle={styles.content}>
+    <ImageBackground
+      source={require("../../assets/bg_gradient.png")}
+      style={styles.backgroundImage}
+    >
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.scrollView}
+        contentContainerStyle={styles.content}
+      >
       {/* 1. Trigger Word Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: COLORS.primaryBg }]}>
-            <Icon name="key" size={18} color={COLORS.primary} />
+          <View style={[styles.iconContainer, { backgroundColor: 'rgba(56, 189, 248, 0.12)' }]}>
+            <Icon name="key" size={18} color={COLORS.secondary} />
           </View>
           <Text style={[styles.cardTitle, { flex: 1 }]}>Trigger Word</Text>
         </View>
@@ -456,8 +465,8 @@ export function SettingsScreen() {
       {/* 2. Sensitivity Threshold Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: COLORS.primaryBg }]}>
-            <Icon name="volume-2" size={18} color={COLORS.primary} />
+          <View style={[styles.iconContainer, { backgroundColor: 'rgba(56, 189, 248, 0.12)' }]}>
+            <Icon name="volume-2" size={18} color={COLORS.secondary} />
           </View>
           <Text style={[styles.cardTitle, { flex: 1 }]}>Sensitivity Threshold</Text>
         </View>
@@ -487,8 +496,8 @@ export function SettingsScreen() {
       {/* 3. Cooldown Period Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: COLORS.primaryBg }]}>
-            <Icon name="clock" size={18} color={COLORS.primary} />
+          <View style={[styles.iconContainer, { backgroundColor: 'rgba(56, 189, 248, 0.12)' }]}>
+            <Icon name="clock" size={18} color={COLORS.secondary} />
           </View>
           <Text style={[styles.cardTitle, { flex: 1 }]}>Cooldown Period</Text>
         </View>
@@ -510,15 +519,15 @@ export function SettingsScreen() {
       {/* 4. Transcribe with Whisper Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: COLORS.primaryLightBg }]}>
-            <Icon name="message-square" size={18} color={COLORS.primary} />
+          <View style={[styles.iconContainer, { backgroundColor: 'rgba(56, 189, 248, 0.12)' }]}>
+            <Icon name="message-square" size={18} color={COLORS.secondary} />
           </View>
           <Text style={[styles.cardTitle, { flex: 1 }]}>Transcribe with Whisper</Text>
           <Switch
             value={useWhisper}
             onValueChange={handleWhisperToggle}
-            thumbColor={useWhisper ? COLORS.primary : '#9CA3AF'}
-            trackColor={{ true: COLORS.primaryLightBg, false: "#E5E7EB" }}
+            thumbColor={useWhisper ? COLORS.secondary : '#9CA3AF'}
+            trackColor={{ true: COLORS.primaryLightBg, false: COLORS.grayTrack }}
             style={{ marginLeft: 8 }}
           />
         </View>
@@ -558,15 +567,15 @@ export function SettingsScreen() {
       {/* 5. Enable Debug Logs Card */}
       <View style={styles.card}>
         <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: COLORS.primaryLightBg }]}>
-            <Icon name="list" size={18} color={COLORS.primary} />
+          <View style={[styles.iconContainer, { backgroundColor: 'rgba(56, 189, 248, 0.12)' }]}>
+            <Icon name="list" size={18} color={COLORS.secondary} />
           </View>
           <Text style={[styles.cardTitle, { flex: 1 }]}>Enable Debug Logs</Text>
           <Switch
             value={enableDebugLogs}
             onValueChange={handleDebugLogsToggle}
-            thumbColor={enableDebugLogs ? COLORS.primary : '#9CA3AF'}
-            trackColor={{ true: COLORS.primaryLightBg, false: "#E5E7EB" }}
+            thumbColor={enableDebugLogs ? COLORS.secondary : '#9CA3AF'}
+            trackColor={{ true: COLORS.primaryLightBg, false: COLORS.grayTrack }}
             style={{ marginLeft: 8 }}
           />
         </View>
@@ -583,29 +592,39 @@ export function SettingsScreen() {
         <Icon name="trash-2" size={18} color="#EF4444" style={{ marginRight: 8 }} />
         <Text style={styles.clearBtnText}>Clear All History & Settings</Text>
       </TouchableOpacity>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
   root: {
     flex: 1,
     backgroundColor: COLORS.neutral,
   },
   content: {
     padding: 16,
-    paddingBottom: 40,
+    paddingBottom: 110,
   },
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#f2e6f0",
+    borderColor: COLORS.grayBorder,
     padding: 20,
     marginBottom: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.12,
     shadowRadius: 8,
     elevation: 2,
   },
@@ -624,12 +643,12 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#1F2937",
+    color: "#FFFFFF",
     marginLeft: 12,
   },
   cardDescription: {
     fontSize: 14,
-    color: "#6B7280",
+    color: COLORS.tertiary,
     lineHeight: 20,
     marginTop: 4,
     marginBottom: 16,
@@ -647,27 +666,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   chipActive: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
+    borderColor: COLORS.secondary,
   },
   chipInactive: {
-    backgroundColor: "#FFFFFF",
-    borderColor: COLORS.primaryBorder,
+    backgroundColor: COLORS.neutral,
+    borderColor: COLORS.grayBorder,
   },
   chipText: {
     fontSize: 14,
     fontWeight: "600",
   },
   chipTextActive: {
-    color: "#FFFFFF",
+    color: COLORS.neutral,
   },
   chipTextInactive: {
-    color: COLORS.primary,
+    color: COLORS.tertiary,
   },
   inputLabel: {
     fontSize: 12,
     fontWeight: "700",
-    color: "#4B5563",
+    color: COLORS.tertiary,
     textTransform: "uppercase",
     letterSpacing: 0.5,
     marginBottom: 8,
@@ -679,17 +698,17 @@ const styles = StyleSheet.create({
   },
   customInput: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.neutral,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: COLORS.primaryBorder,
+    borderColor: COLORS.grayBorder,
     paddingHorizontal: 14,
     height: 48,
     fontSize: 15,
-    color: "#1F2937",
+    color: "#FFFFFF",
   },
   addBtn: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     borderRadius: 10,
     paddingHorizontal: 20,
     height: 48,
@@ -697,7 +716,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   addBtnText: {
-    color: "#FFFFFF",
+    color: COLORS.neutral,
     fontSize: 15,
     fontWeight: "700",
   },
@@ -710,12 +729,12 @@ const styles = StyleSheet.create({
   sliderLabelSide: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#6B7280",
+    color: COLORS.tertiary,
   },
   sliderValueText: {
     fontSize: 16,
     fontWeight: "700",
-    color: COLORS.primary,
+    color: COLORS.secondary,
   },
   sliderTicksRow: {
     flexDirection: "row",
@@ -724,7 +743,7 @@ const styles = StyleSheet.create({
   },
   sliderTickText: {
     fontSize: 12,
-    color: "#9CA3AF",
+    color: COLORS.tertiary,
   },
   cooldownRow: {
     flexDirection: "row",
@@ -733,19 +752,19 @@ const styles = StyleSheet.create({
   },
   cooldownRecommended: {
     fontSize: 14,
-    color: "#6B7280",
+    color: COLORS.tertiary,
     fontStyle: "italic",
   },
   divider: {
     height: 1,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS.grayBorder,
     marginVertical: 16,
   },
   clearBtn: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: "#EF4444",
     borderRadius: 12,
@@ -753,25 +772,25 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   clearBtnText: {
-    color: "#747676ff",
+    color: "#EF4444",
     fontSize: 15,
     fontWeight: "700",
   },
   whisperModelSection: {
     marginTop: 16,
     borderTopWidth: 1,
-    borderTopColor: "#F3F4F6",
+    borderTopColor: COLORS.grayBorder,
     paddingTop: 16,
   },
   whisperModelTitle: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#1F2937",
+    color: "#FFFFFF",
     marginBottom: 4,
   },
   whisperModelDesc: {
     fontSize: 13,
-    color: "#6B7280",
+    color: COLORS.tertiary,
     lineHeight: 18,
     marginBottom: 12,
   },
@@ -788,33 +807,33 @@ const styles = StyleSheet.create({
   },
   modelChip: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.neutral,
     borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: COLORS.grayBorder,
     alignItems: "center",
     justifyContent: "center",
   },
   modelChipActive: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
+    borderColor: COLORS.secondary,
   },
   modelChipText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#4B5563",
+    color: COLORS.tertiary,
     marginBottom: 2,
   },
   modelChipTextActive: {
-    color: "#FFFFFF",
+    color: COLORS.neutral,
   },
   modelSizeText: {
     fontSize: 12,
-    color: "#9CA3AF",
+    color: COLORS.tertiary,
   },
   modelSizeTextActive: {
-    color: COLORS.secondaryBg,
+    color: COLORS.neutral,
   },
 });

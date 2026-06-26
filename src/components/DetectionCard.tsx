@@ -71,14 +71,14 @@ export function DetectionCard({ item }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.white,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#f2e6f0",
+    borderColor: COLORS.grayBorder,
     padding: 16,
     marginBottom: 12,
     shadowColor: "#000",
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.12,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 4,
   },
-  keyword: { fontSize: 17, fontWeight: "700", color: COLORS.tertiary },
+  keyword: { fontSize: 17, fontWeight: "700", color: "#FFFFFF" },
   badge: { borderRadius: 20, paddingVertical: 2, paddingHorizontal: 10 },
   badgeOk: { backgroundColor: COLORS.secondaryBg },
   badgeLow: { backgroundColor: COLORS.primaryLightBg },
@@ -107,5 +107,5 @@ const styles = StyleSheet.create({
   placeBadgeText: { fontSize: 11, fontWeight: '600', color: COLORS.secondary },
   transcript: { fontSize: 14, color: COLORS.tertiary, fontStyle: "italic" },
   transcriptPending: { fontSize: 13, color: COLORS.tertiary, fontStyle: "italic", opacity: 0.6 },
-  transcriptNone: { fontSize: 13, color: COLORS.primary, fontStyle: "italic" },
+  transcriptNone: { fontSize: 13, color: '#94A3B8', fontStyle: "italic" },
 });

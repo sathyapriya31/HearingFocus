@@ -5,7 +5,7 @@
  */
 import React, { useCallback, useState, useRef } from 'react';
 import {
-  View, FlatList, Text, TouchableOpacity, StyleSheet, Alert, RefreshControl,
+  View, FlatList, Text, TouchableOpacity, StyleSheet, Alert, RefreshControl, ImageBackground
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDetections, clearDetections } from '../services/detectionStore';
@@ -42,37 +42,44 @@ export function HistoryScreen() {
   };
 
   return (
-    <View style={styles.root}>
-      {items.length > 0 && (
-        <TouchableOpacity style={styles.clearBtn} onPress={handleClear}>
-          <Text style={styles.clearText}>Clear All</Text>
-        </TouchableOpacity>
-      )}
-      <FlatList
-        ref={flatListRef}
-        data={items}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <DetectionCard item={item} />}
-        contentContainerStyle={styles.list}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={load} />}
-        ListEmptyComponent={
-          <View style={styles.empty}>
-            <Text style={styles.emptyTitle}>No detections yet</Text>
-            <Text style={styles.emptyHint}>
-              Start listening on the Home tab and say your trigger word.
-            </Text>
-          </View>
-        }
-      />
-    </View>
+    <ImageBackground
+      source={require('../../assets/bg_gradient.png')}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        {items.length > 0 && (
+          <TouchableOpacity style={styles.clearBtn} onPress={handleClear}>
+            <Text style={styles.clearText}>Clear All</Text>
+          </TouchableOpacity>
+        )}
+        <FlatList
+          ref={flatListRef}
+          data={items}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <DetectionCard item={item} />}
+          contentContainerStyle={styles.list}
+          refreshControl={<RefreshControl refreshing={loading} onRefresh={load} tintColor="#FFFFFF" />}
+          ListEmptyComponent={
+            <View style={styles.empty}>
+              <Text style={styles.emptyTitle}>No detections yet</Text>
+              <Text style={styles.emptyHint}>
+                Start listening on the Home tab and say your trigger word.
+              </Text>
+            </View>
+          }
+        />
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: { flex: 1, width: '100%', height: '100%' },
+  container: { flex: 1, backgroundColor: 'transparent' },
   root: { flex: 1, backgroundColor: COLORS.neutral },
-  list: { padding: 16, paddingBottom: 40 },
+  list: { padding: 16, paddingBottom: 110 },
   clearBtn: { alignSelf: 'flex-end', margin: 16, marginBottom: 0 },
-  clearText: { color: COLORS.primary, fontSize: 14, fontWeight: '600' },
+  clearText: { color: COLORS.secondary, fontSize: 14, fontWeight: '600' },
   empty: { flex: 1, paddingTop: 80, alignItems: 'center' },
   emptyTitle: { fontSize: 18, fontWeight: '700', color: COLORS.tertiary, marginBottom: 8 },
   emptyHint: { fontSize: 14, color: COLORS.tertiary, textAlign: 'center', maxWidth: 280 },

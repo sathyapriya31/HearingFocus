@@ -52,7 +52,7 @@ class AcousticSceneModule: RCTEventEmitter {
     private var sampleBuffer: [Int16] = []
     private var classifyTimer: Timer?
     private var smoothedScores: [Float] = []
-    private let EMA_ALPHA: Float = 0.5
+    private let EMA_ALPHA: Float = 0.8
 
     private let workQueue = DispatchQueue(label: "com.hearingtrigger.scene", qos: .utility)
     private let bufferLock = NSLock()
@@ -294,27 +294,40 @@ class AcousticSceneModule: RCTEventEmitter {
             return false
         }
 
-        let hasMusic     = (scores.count > 132 && scores[132] > tEvt) || hasEventInRange(133...276)
-        let hasVehicle   = hasEventInRange(294...336)
-        let hasMachinery = hasEventInRange(337...347) || (scores.count > 398 && scores[398] > tEvt) || hasEventInRange(403...407) || hasEventInRange(412...419)
-        let hasChildren  = hasEventInIndices([1, 10, 66])
-        let hasSpeech    = (scores.count > 0 && scores[0] > tEvt) || (scores.count > 5 && scores[5] > tEvt)
-        let hasCrowd     = crowd > tEvt || (scores.count > 65 && scores[65] > tEvt)
+        let hasMusic      = (scores.count > 132 && scores[132] > tEvt) || hasEventInRange(133...276)
+        let hasVehicle    = hasEventInRange(294...336)
+        let hasMachinery  = hasEventInRange(337...347) || (scores.count > 398 && scores[398] > tEvt) || hasEventInRange(403...407) || hasEventInRange(412...419)
+        let hasChildren   = hasEventInIndices([1, 10, 66])
+        let hasSpeech     = (scores.count > 0 && scores[0] > tEvt) || (scores.count > 5 && scores[5] > tEvt)
+        let hasCrowd      = crowd > tEvt || (scores.count > 65 && scores[65] > tEvt)
+        let hasRestaurant = hasEventInIndices([487, 490, 491, 492, 493, 494, 495])
 
-        if smallRoom > tEnv && (hasChildren || hasSpeech) { return "School" }
-        if smallRoom > tEnv                               { return "Office" }
-        if largeRoom > tEnv && hasMusic                   { return "Theatre" }
-        if largeRoom > tEnv && hasCrowd                   { return "Mall" }
-        if largeRoom > tEnv                               { return "Hall" }
-        if publicSpace > tEnv && hasCrowd                 { return "Mall" }
-        if publicSpace > tEnv                             { return "Public Space" }
-        if urbanOut > tEnv                                { return "Outdoors" }
-        if ruralOut > tEnv                                { return "Nature" }
+        // 1. High-confidence specific events take absolute precedence
         if hasVehicle                                     { return "Vehicle" }
         if hasMachinery                                   { return "Factory" }
+
+        // 2. Combined room tone + specific event rules
+        if smallRoom > tEnv && hasChildren                { return "School" }
+        if smallRoom > tEnv                               { return "Office" }
+
+        if largeRoom > tEnv && hasMusic                   { return "Theatre" }
+        if largeRoom > tEnv && hasCrowd                   { return "Mall" }
+        if largeRoom > tEnv && hasRestaurant              { return "Restaurant" }
+        if largeRoom > tEnv                               { return "Hall" }
+
+        if publicSpace > tEnv && hasCrowd                 { return "Mall" }
+        if publicSpace > tEnv && hasRestaurant            { return "Restaurant" }
+        if publicSpace > tEnv                             { return "Public Space" }
+
+        if urbanOut > tEnv                                { return "Outdoors" }
+        if ruralOut > tEnv                                { return "Nature" }
+
+        // 3. Lower confidence fallback rules based on individual event types
         if hasCrowd                                       { return "Mall" }
+        if hasRestaurant                                  { return "Restaurant" }
         if hasMusic                                       { return "Restaurant" }
         if hasChildren                                    { return "School" }
+        if hasSpeech                                      { return "Office" }
         return "Unknown"
     }
 }

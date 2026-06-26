@@ -41,14 +41,14 @@ class HearingTriggerModule: RCTEventEmitter {
     // ─── VAD state (accessed only on vadQueue) ────────────────────
     private let vadQueue      = DispatchQueue(label: "com.hearingtrigger.vad", qos: .userInteractive)
     private let ENERGY_THRESHOLD = Float(0.045)  // normalized RMS — filters room noise, HVAC, TV hum
-    private let MIN_SPEECH_MS    = 700.0         // sustained speech required before triggering
-
+    private let MIN_SPEECH_MS    = 350.0         // sustained speech required before triggering
+ 
     private var speechOnsetAt:     Date?
     private var isRecording        = false
     private var recordingStartedAt = Date.distantPast
     private var recordedSamples    = [Int16]()
-    private var preRollSamples     = [Int16]()   // 1-second sliding pre-roll
-    private let preRollMaxCount    = 16000        // 1s at 16kHz
+    private var preRollSamples     = [Int16]()   // 0.5-second sliding pre-roll
+    private let preRollMaxCount    = 8000         // 0.5s at 16kHz
 
     // ─── Cooldown ─────────────────────────────────────────────────
     private var lastDetectAt = Date.distantPast

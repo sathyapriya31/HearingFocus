@@ -4,7 +4,7 @@
  * Shows a prompt if microphone permission is not granted.
  */
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Linking, Image, ImageBackground } from 'react-native';
 import { usePermissions } from '../hooks/usePermissions';
 import { COLORS } from '../config/colors';
 import { MicIcon } from './Icons';
@@ -23,53 +23,63 @@ export function PermissionGate({ children }: Props) {
   if (micStatus === 'granted') return <>{children}</>;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.brandRow}>
-        <View style={styles.brandBox}>
-          <Image source={require('../../assets/logo.png')} style={styles.brandLogo} resizeMode="contain" />
-        </View>
-        <Text style={styles.brandText}>Focus Aid</Text>
-      </View>
-
-      {/* Center Content */}
-      <View style={styles.centerContent}>
-        <View style={styles.micCircle}>
-          <MicIcon size={40} color={COLORS.primary} />
+    <ImageBackground
+      source={require('../../assets/bg_gradient.png')}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <View style={styles.brandRow}>
+          <View style={styles.brandBox}>
+            <Image source={require('../../assets/logo.png')} style={styles.brandLogo} resizeMode="contain" />
+          </View>
+          <Text style={styles.brandText}>Focus Aid</Text>
         </View>
 
-        <Text style={styles.title}>Microphone Access Required</Text>
+        {/* Center Content */}
+        <View style={styles.centerContent}>
+          <View style={styles.micCircle}>
+            <MicIcon size={40} color={COLORS.secondary} />
+          </View>
 
-        <Text style={styles.body}>
-          This app listens locally for your trigger word. Audio is never sent to any server.
-        </Text>
+          <Text style={styles.title}>Microphone Access Required</Text>
 
-        {micStatus === 'blocked' && (
-          <Text style={styles.warningHint}>
-            Microphone access is blocked. Please enable it in your device settings to continue.
+          <Text style={styles.body}>
+            This app listens locally for your trigger word. Audio is never sent to any server.
           </Text>
-        )}
-      </View>
 
-      {/* Bottom Button Container */}
-      <View style={styles.buttonContainer}>
-        {micStatus === 'blocked' ? (
-          <TouchableOpacity style={styles.button} onPress={() => Linking.openSettings()}>
-            <Text style={styles.buttonText}>Open Device Settings</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.button} onPress={requestMic}>
-            <Text style={styles.buttonText}>Grant Microphone Access</Text>
-          </TouchableOpacity>
-        )}
+          {micStatus === 'blocked' && (
+            <Text style={styles.warningHint}>
+              Microphone access is blocked. Please enable it in your device settings to continue.
+            </Text>
+          )}
+        </View>
+
+        {/* Bottom Button Container */}
+        <View style={styles.buttonContainer}>
+          {micStatus === 'blocked' ? (
+            <TouchableOpacity style={styles.button} onPress={() => Linking.openSettings()}>
+              <Text style={styles.buttonText}>Open Device Settings</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.button} onPress={requestMic}>
+              <Text style={styles.buttonText}>Grant Microphone Access</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
     paddingHorizontal: 24,
     paddingTop: 60,
     paddingBottom: 40,
@@ -96,13 +106,12 @@ const styles = StyleSheet.create({
   brandText: {
     fontSize: 25,
     fontWeight: '700',
-    color: COLORS.primary,
+    color: COLORS.secondary,
     marginLeft: 8,
   },
   centerContent: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
     paddingTop: 90,
     paddingHorizontal: 16,
   },
@@ -110,27 +119,27 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: COLORS.primaryBg,
+    backgroundColor: 'rgba(56, 189, 248, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 32,
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.secondary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 2,
   },
   title: {
     fontSize: 24,
     fontWeight: '800',
-    color: '#1F2937',
+    color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 12,
     lineHeight: 32,
   },
   body: {
     fontSize: 15,
-    color: '#6B7280',
+    color: COLORS.tertiary,
     textAlign: 'center',
     lineHeight: 22,
     maxWidth: 290,
@@ -149,20 +158,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   button: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     width: '100%',
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.secondary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 4,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: COLORS.neutral,
     fontSize: 16,
     fontWeight: '700',
   },

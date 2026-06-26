@@ -48,16 +48,35 @@ export function startAudioBridge() {
     async (rawEvent: NativeDetectionEvent) => {
       if (!rawEvent.clipPath) return;
 
+      const startTime = Date.now();
+
+      // Parse active keywords passed from native layer
+      const activeKeywords = rawEvent.keyword
+        .toLowerCase()
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean);
+
+      // Load debug logs preference from AsyncStorage
+      let enableDebugLogs = false;
+      try {
+        const rawSettings = await AsyncStorage.getItem(SETTINGS_KEY);
+        if (rawSettings) {
+          const parsed = JSON.parse(rawSettings);
+          enableDebugLogs = !!parsed.enableDebugLogs;
+        }
+      } catch {}
+
+      if (enableDebugLogs) {
+        console.log(
+          `[AudioBridge] KWS Triggered (Native VAD). Active Keywords: ${JSON.stringify(activeKeywords)} | Clip: ${rawEvent.clipPath}`,
+        );
+      }
+
       try {
         // 1. Transcribe the captured audio clip
         const transcript = await transcribeClip(rawEvent.clipPath);
-
-        // Parse active keywords passed from native layer
-        const activeKeywords = rawEvent.keyword
-          .toLowerCase()
-          .split(",")
-          .map((k) => k.trim())
-          .filter(Boolean);
+        const duration = Date.now() - startTime;
 
         // Find all keywords that match the transcribed text (using fuzzy matching)
         const matchedKeywords = activeKeywords.filter((kw) =>
@@ -65,22 +84,9 @@ export function startAudioBridge() {
         );
         const confirmed = matchedKeywords.length > 0;
 
-        // Load debug logs preference from AsyncStorage
-        let enableDebugLogs = false;
-        try {
-          const rawSettings = await AsyncStorage.getItem(SETTINGS_KEY);
-          if (rawSettings) {
-            const parsed = JSON.parse(rawSettings);
-            enableDebugLogs = !!parsed.enableDebugLogs;
-          }
-        } catch {}
-
         if (enableDebugLogs) {
           console.log(
-            `[AudioBridge] KWS Triggered. Active Keywords: ${JSON.stringify(activeKeywords)}`,
-          );
-          console.log(
-            `[AudioBridge] Whisper Transcript: "${transcript}" | Matched: ${matchedKeywords.join(", ") || "None"} | Confirmed: ${confirmed}`,
+            `[AudioBridge] Whisper Transcript (${duration}ms): "${transcript}" | Matched: ${matchedKeywords.join(", ") || "None"} | Confirmed: ${confirmed}`,
           );
         }
 

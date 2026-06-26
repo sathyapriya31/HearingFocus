@@ -39,7 +39,7 @@ class AcousticSceneModule(private val ctx: ReactApplicationContext)
     private var scheduledTask: ScheduledFuture<*>? = null
     private var classifier: AudioClassifier? = null
     private val smoothedScores = FloatArray(521)
-    private val EMA_ALPHA = 0.5f
+    private val EMA_ALPHA = 0.8f
 
     // ─── JS-callable methods ──────────────────────────────────────────────────
 
@@ -189,28 +189,41 @@ class AcousticSceneModule(private val ctx: ReactApplicationContext)
             return false
         }
 
-        val hasMusic     = (scores.size > 132 && scores[132] > tEvt) || hasEventInRange(133, 276)
-        val hasVehicle   = hasEventInRange(294, 336)
-        val hasMachinery = hasEventInRange(337, 347) || (scores.size > 398 && scores[398] > tEvt) || hasEventInRange(403, 407) || hasEventInRange(412, 419)
-        val hasChildren  = hasEventInIndices(intArrayOf(1, 10, 66))
-        val hasSpeech    = (scores.size > 0 && scores[0] > tEvt) || (scores.size > 5 && scores[5] > tEvt)
-        val hasCrowd     = crowd > tEvt || (scores.size > 65 && scores[65] > tEvt)
+        val hasMusic      = (scores.size > 132 && scores[132] > tEvt) || hasEventInRange(133, 276)
+        val hasVehicle    = hasEventInRange(294, 336)
+        val hasMachinery  = hasEventInRange(337, 347) || (scores.size > 398 && scores[398] > tEvt) || hasEventInRange(403, 407) || hasEventInRange(412, 419)
+        val hasChildren   = hasEventInIndices(intArrayOf(1, 10, 66))
+        val hasSpeech     = (scores.size > 0 && scores[0] > tEvt) || (scores.size > 5 && scores[5] > tEvt)
+        val hasCrowd      = crowd > tEvt || (scores.size > 65 && scores[65] > tEvt)
+        val hasRestaurant = hasEventInIndices(intArrayOf(487, 490, 491, 492, 493, 494, 495))
 
         return when {
-            smallRoom > tEnv && (hasChildren || hasSpeech) -> "School"
-            smallRoom > tEnv                               -> "Office"
-            largeRoom > tEnv && hasMusic                   -> "Theatre"
-            largeRoom > tEnv && hasCrowd                   -> "Mall"
-            largeRoom > tEnv                               -> "Hall"
-            publicSpace > tEnv && hasCrowd                 -> "Mall"
-            publicSpace > tEnv                             -> "Public Space"
-            urbanOut > tEnv                                -> "Outdoors"
-            ruralOut > tEnv                                -> "Nature"
+            // 1. High-confidence specific events take absolute precedence
             hasVehicle                                     -> "Vehicle"
             hasMachinery                                   -> "Factory"
+
+            // 2. Combined room tone + specific event rules
+            smallRoom > tEnv && hasChildren                -> "School"
+            smallRoom > tEnv                               -> "Office"
+
+            largeRoom > tEnv && hasMusic                   -> "Theatre"
+            largeRoom > tEnv && hasCrowd                   -> "Mall"
+            largeRoom > tEnv && hasRestaurant              -> "Restaurant"
+            largeRoom > tEnv                               -> "Hall"
+
+            publicSpace > tEnv && hasCrowd                 -> "Mall"
+            publicSpace > tEnv && hasRestaurant            -> "Restaurant"
+            publicSpace > tEnv                             -> "Public Space"
+
+            urbanOut > tEnv                                -> "Outdoors"
+            ruralOut > tEnv                                -> "Nature"
+
+            // 3. Lower confidence fallback rules based on individual event types
             hasCrowd                                       -> "Mall"
+            hasRestaurant                                  -> "Restaurant"
             hasMusic                                       -> "Restaurant"
             hasChildren                                    -> "School"
+            hasSpeech                                      -> "Office"
             else                                           -> "Unknown"
         }
     }

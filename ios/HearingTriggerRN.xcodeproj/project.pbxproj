@@ -37,7 +37,7 @@
 		00E356EE1AD99517003FC87E /* HearingTriggerRNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HearingTriggerRNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HearingTriggerRNTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HearingTriggerRNTests.m; sourceTree = "<group>"; };
-		06CD069253633397E8951E4C /* AcousticSceneModule.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = AcousticSceneModule.swift; path = AcousticSceneModule.swift; sourceTree = "<group>"; };
+		06CD069253633397E8951E4C /* AcousticSceneModule.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = AcousticSceneModule.swift; sourceTree = "<group>"; };
 		0E30ABEADF0B19ACDAC4F0D8 /* Pods-HearingTriggerRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearingTriggerRN.debug.xcconfig"; path = "Target Support Files/Pods-HearingTriggerRN/Pods-HearingTriggerRN.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HearingTriggerRN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearingTriggerRN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HearingTriggerRN/AppDelegate.h; sourceTree = "<group>"; };
@@ -54,11 +54,11 @@
 		5958825083F84B518E755B80 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = ../assets/fonts/Feather.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HearingTriggerRN/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D9996295125DAD1DEF03DBB /* HearingTriggerModule.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = HearingTriggerModule.swift; sourceTree = "<group>"; };
-		925BD8EC74E400F3C3D5CA58 /* AcousticSceneModule.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; lastKnownFileType = sourcecode.c.objc; name = AcousticSceneModule.m; path = AcousticSceneModule.m; sourceTree = "<group>"; };
+		925BD8EC74E400F3C3D5CA58 /* AcousticSceneModule.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = AcousticSceneModule.m; sourceTree = "<group>"; };
 		A081D0C85F04C9ABF82B6BDB /* Pods-HearingTriggerRN-HearingTriggerRNTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HearingTriggerRN-HearingTriggerRNTests.debug.xcconfig"; path = "Target Support Files/Pods-HearingTriggerRN-HearingTriggerRNTests/Pods-HearingTriggerRN-HearingTriggerRNTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AD607AE319E7BA96821F5DB3 /* libPods-HearingTriggerRN-HearingTriggerRNTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HearingTriggerRN-HearingTriggerRNTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8B7414180C22FAC03B489D0 /* yamnet.tflite */ = {isa = PBXFileReference; name = yamnet.tflite; path = yamnet.tflite; sourceTree = "<group>"; };
-		CB87C2367F0A788666653799 /* models */ = {isa = PBXFileReference; name = models; path = models; sourceTree = "<group>"; };
+		B8B7414180C22FAC03B489D0 /* yamnet.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = yamnet.tflite; sourceTree = "<group>"; };
+		CB87C2367F0A788666653799 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = models; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -317,9 +317,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN-HearingTriggerRNTests/Pods-HearingTriggerRN-HearingTriggerRNTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN-HearingTriggerRNTests/Pods-HearingTriggerRN-HearingTriggerRNTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -334,9 +338,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN/Pods-HearingTriggerRN-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN/Pods-HearingTriggerRN-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -351,9 +359,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN-HearingTriggerRNTests/Pods-HearingTriggerRN-HearingTriggerRNTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN-HearingTriggerRNTests/Pods-HearingTriggerRN-HearingTriggerRNTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -390,9 +402,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN/Pods-HearingTriggerRN-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HearingTriggerRN/Pods-HearingTriggerRN-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -519,6 +535,8 @@
 				DEVELOPMENT_TEAM = TR66M2SP7Y;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HearingTriggerRN/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Aid";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,8 +548,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spritle.--PRODUCT-NAME-rfc1034identifier-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.spritle.HearingTriggerRN;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spritle.hearingtrigger;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.spritle.hearingtrigger;
 				PRODUCT_NAME = HearingTriggerRN;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -551,6 +569,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TR66M2SP7Y;
 				INFOPLIST_FILE = HearingTriggerRN/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Aid";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -562,8 +582,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.spritle.--PRODUCT-NAME-rfc1034identifier-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.spritle.HearingTriggerRN;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spritle.hearingtrigger;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.spritle.hearingtrigger;
 				PRODUCT_NAME = HearingTriggerRN;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -651,10 +671,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -734,10 +751,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

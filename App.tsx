@@ -26,36 +26,47 @@ function AppNavigator() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.neutral }}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: true,
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: COLORS.white,
+            backgroundColor: COLORS.neutral,
             borderBottomWidth: StyleSheet.hairlineWidth,
-            borderBottomColor: '#E5E7EB',
+            borderBottomColor: COLORS.grayBorder,
             elevation: 0,
             shadowOpacity: 0,
           },
           headerTitleStyle: {
             fontSize: 17,
             fontWeight: '600',
-            color: '#1F2937',
+            color: '#FFFFFF',
           },
           tabBarHideOnKeyboard: true,
           tabBarStyle: {
-            backgroundColor: COLORS.white,
-            borderTopColor: '#f0e5ec',
-            borderTopWidth: 1,
-            height: 60 + insets.bottom,
-            paddingBottom: insets.bottom > 0 ? insets.bottom + 6 : 8,
-            paddingTop: 6,
+            position: 'absolute',
+            bottom: 24,
+            left: 20,
+            right: 20,
+            height: 64,
+            borderRadius: 20,
+            backgroundColor: 'rgba(17, 34, 64, 0.92)',
+            borderTopWidth: 0,
+            borderWidth: 1,
+            borderColor: 'rgba(56, 189, 248, 0.15)',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: 0.25,
+            shadowRadius: 12,
+            elevation: 8,
+            paddingBottom: 8,
+            paddingTop: 8,
           },
-          tabBarActiveTintColor: COLORS.primary,
-          tabBarInactiveTintColor: COLORS.tertiary,
+          tabBarActiveTintColor: COLORS.secondary,
+          tabBarInactiveTintColor: '#64748B',
           tabBarLabelStyle: {
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: '700',
           },
           tabBarIcon: ({ focused, color }) => {
@@ -97,7 +108,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.neutral} />
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.neutral} />
       <PermissionGate>
         <NavigationContainer>
           <AppNavigator />

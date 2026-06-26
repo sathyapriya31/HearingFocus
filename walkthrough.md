@@ -31,12 +31,13 @@ We have successfully integrated native splash screens, bundled the Whisper and K
 
 ---
 
-## 3. Latency Optimizations
+## 3. Latency & Logging Optimizations
 
-- **Pre-roll Tuning**: Reduced the pre-roll capture buffer to **0.5 seconds** (down from 1.0s) in the Android foreground service to minimize the amount of audio passed to Whisper.
-- **VAD Sensitivity**: Lowered the minimum sustained speech verification threshold in [HearingForegroundService.kt](file:///Users/sathyapriya/Desktop/React-Native/hearing-trigger-rn/android/app/src/main/java/com/hearingtrigger/audio/HearingForegroundService.kt) to **350ms** (down from 700ms) for faster activation.
-- **Post-Capture Window**: Reduced the keyword post-capture duration to **1.5 seconds** (down from 3.0s) in [kwsService.ts](file:///Users/sathyapriya/Desktop/React-Native/hearing-trigger-rn/src/services/kwsService.ts).
-- **Multithreading**: Configured Whisper to utilize **4 CPU threads** during transcription in [whisperService.ts](file:///Users/sathyapriya/Desktop/React-Native/hearing-trigger-rn/src/services/whisperService.ts).
+- **Pre-roll Tuning**: Reduced the pre-roll capture buffer to **0.5 seconds** (down from 1.0s) on both Android (`HearingForegroundService.kt`) and iOS (`HearingTriggerModule.swift`) to minimize audio chunk sizes processed by Whisper.
+- **VAD Sensitivity**: Lowered the minimum sustained speech verification threshold to **350ms** (down from 700ms) on both Android and iOS for faster, near-instant speech detection.
+- **Post-Capture Window**: Reduced the keyword post-capture recording duration to **1.0 second** (down from 1.5s/3.0s) in `kwsService.ts` to decrease wait delay after speech onset.
+- **Whisper Multithreading**: Configured Whisper to utilize **4 CPU threads** during transcription in `whisperService.ts`.
+- **Instantaneous KWS Logging**: Separated the logging stages in `audioBridge.ts` so the `[AudioBridge] KWS Triggered (Native VAD)` message prints immediately when the native module detects speech, rather than waiting for Whisper to transcribe first. It also tracks and prints the exact Whisper transcription duration (e.g., `Whisper Transcript (230ms)`).
 
 ---
 
